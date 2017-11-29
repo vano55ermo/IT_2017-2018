@@ -308,8 +308,8 @@ function initObjects()
 {
 	var sunPosition = new TrajectoryStaticPosition(null, 0, 0, 0);
 	var earthOrbit = new TrajectoryCircleOrbit(sunPosition, 50, 0, 0.2);
-	var marsOrbit = new TrajectoryKeplerianOrbit(sunPosition, 0.4, 100, 0, 0, 0, 0, 10000, 'red');
-	var plutoOrbit = new TrajectoryKeplerianOrbit(sunPosition,0.25,300,0,1,0,0,10000,'blue');
+	var marsOrbit = new TrajectoryKeplerianOrbit(sunPosition, 0.4, 100, 0, 0, 0, 0, 100000, 'red');
+	var plutoOrbit = new TrajectoryKeplerianOrbit(sunPosition,0.25,300,0,1,0,0,100000,'blue');
 	var moonOrbit = new TrajectoryCircleOrbit(earthOrbit,2,0,0.2);
 	
 	earth = new Body(1, 'green', earthOrbit, new Orientation(0,0,0,1));
