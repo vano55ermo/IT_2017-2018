@@ -1,4 +1,5 @@
 var scene, camera, renderer, earth, mars, controls;
+var raycaster, mouseCoords, trajectoryObjects;
 
 
 class Body
@@ -117,7 +118,7 @@ class TrajectoryCircleOrbit extends TrajectoryAbstract
 		// Create the final Object3d to add to the scene
 		this.threeObj = new THREE.Line(geometry, material);
 
-		scene.add(this.threeObj);
+		trajectoryObjects.add(this.threeObj);
 	}
 
 	getPosition(time)
@@ -177,7 +178,7 @@ class TrajectoryKeplerianOrbit extends TrajectoryAbstract
 
 		this.threeObj.rotation.z = raan;
 
-		scene.add(this.threeObj);
+		trajectoryObjects.add(this.threeObj);
 	}
 
 	getEccentricAnomalyByTrueAnomaly(ta)
@@ -245,16 +246,16 @@ class TrajectoryKeplerianOrbit extends TrajectoryAbstract
 			[Math.cos(this.aop), -Math.sin(this.aop), 0],
 			[Math.sin(this.aop),  Math.cos(this.aop), 0],
 			[                 0,                   0, 1]
-		]; 												 //OZ
+		];
 		var Rot2 = [
 			[1,                  0,                   0],
 			[0, Math.cos(this.inc), -Math.sin(this.inc)],
-			[0, Math.sin(this.inc),  Math.cos(this.inc)] //OX
+			[0, Math.sin(this.inc),  Math.cos(this.inc)]
 		];
 		var Rot3 = [
 			[Math.cos(this.raan), -Math.sin(this.raan), 0],
 			[Math.sin(this.raan),  Math.cos(this.raan), 0],
-			[                 0,                   0, 1] //OY
+			[                 0,                   0, 1]
 		];
 
 		pos = multMatrixByVector(Rot1, pos);
@@ -293,7 +294,7 @@ function init()
 	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 	camera.up = new THREE.Vector3(0, 0, 1);
-	camera.position.z = 500;
+	camera.position.z = 250;
 	renderer = new THREE.WebGLRenderer();
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(renderer.domElement);
@@ -301,6 +302,39 @@ function init()
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 	scene.add(new THREE.AxisHelper(3));
+
+	trajectoryObjects = new THREE.Object3D();
+	scene.add(trajectoryObjects);
+
+	initRaycaster();
+}
+
+function initRaycaster()
+{
+	raycaster = new THREE.Raycaster();
+	raycaster.linePrecision = 1;
+
+	mouseCoords = new THREE.Vector2();
+
+	document.addEventListener("mousemove", onMouseMove);
+}
+
+function raycast()
+{
+	raycaster.setFromCamera(mouseCoords, camera);
+
+	// Массив получившихся пересечений
+	var intersects = raycaster.intersectObjects(trajectoryObjects.children);
+
+	if (intersects.length > 0) {
+		console.log(intersects);
+	}
+}
+
+function onMouseMove(event)
+{
+	mouseCoords.x = event.clientX / window.innerWidth * 2 - 1;
+	mouseCoords.y = -event.clientY / window.innerHeght * 2 + 1;
 }
 
 // Создаёт объекты (1 раз)
