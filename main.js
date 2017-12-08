@@ -367,7 +367,7 @@ function updateObjects(time)
 function render(time)
 {
 	updateObjects(time / 300);
-
+	raycast();
 	controls.update();
 
 	renderer.render(scene, camera);
