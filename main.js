@@ -1,6 +1,22 @@
 var scene, camera, renderer, earth, mars, controls;
-var raycaster, mouseCoords, trajectoryObjects;
+var mouseCoords, trajectoryObjects;
+var timeSpeed = 30;
+var plutoOrbitColor = 'blue';
 
+function setTimeSpeed() 
+{
+	var TS=document.getElementById('timeSpeedInput').value;
+	document.getElementById('timeSpeedValue').innerHTML='timeSpeed = ' + parseInt(TS);
+	
+	timeSpeed = parseInt(TS);
+}
+
+function setPlutoOrbitColor()
+{
+	var PC=document.getElementById('plutoOrbitColorInput').value;
+	
+	plutoOrbitColor = PC;
+}
 
 class Body
 {
@@ -305,30 +321,6 @@ function init()
 
 	trajectoryObjects = new THREE.Object3D();
 	scene.add(trajectoryObjects);
-
-	initRaycaster();
-}
-
-function initRaycaster()
-{
-	raycaster = new THREE.Raycaster();
-	raycaster.linePrecision = 1;
-
-	mouseCoords = new THREE.Vector2();
-
-	document.addEventListener("mousemove", onMouseMove);
-}
-
-function raycast()
-{
-	raycaster.setFromCamera(mouseCoords, camera);
-
-	// Массив получившихся пересечений
-	var intersects = raycaster.intersectObjects(trajectoryObjects.children);
-
-	if (intersects.length > 0) {
-		console.log(intersects);
-	}
 }
 
 function onMouseMove(event)
@@ -343,7 +335,7 @@ function initObjects()
 	var sunPosition = new TrajectoryStaticPosition(null, 0, 0, 0);
 	var earthOrbit = new TrajectoryCircleOrbit(sunPosition, 50, 0, 0.2);
 	var marsOrbit = new TrajectoryKeplerianOrbit(sunPosition, 0.4, 100, 0, 0, 0, 0, 100000, 'red');
-	var plutoOrbit = new TrajectoryKeplerianOrbit(sunPosition,0.25,300,0,1,0,0,100000,'blue');
+	var plutoOrbit = new TrajectoryKeplerianOrbit(sunPosition,0.25,300,0,1,0,0,100000,plutoOrbitColor);
 	var moonOrbit = new TrajectoryCircleOrbit(earthOrbit,2,0,0.2);
 	
 	earth = new Body(1, 'green', earthOrbit, new Orientation(0,0,0,1));
@@ -366,8 +358,8 @@ function updateObjects(time)
 // Отрисовка сцены на каждом кадре
 function render(time)
 {
-	updateObjects(time / 300);
-	raycast();
+	updateObjects(time * timeSpeed / 10000);
+
 	controls.update();
 
 	renderer.render(scene, camera);
