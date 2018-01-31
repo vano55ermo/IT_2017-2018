@@ -11,8 +11,10 @@ class Body
 
 		this.trajectory = trajectory;
 		this.orientation = orientation;
+		
+		objects[objects.length] = this;
 	}
-
+	
 	update(time)
 	{
 		var pos = this.trajectory.getPosition(time);

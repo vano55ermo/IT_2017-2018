@@ -217,7 +217,7 @@ class TrajectoryKeplerianOrbit extends TrajectoryAbstract
 			z: parentPosition.z + pos[2]
 		};
 	}
-
+	
 	update(time)
 	{
 		var pos = this.parentTrajectory.getPosition(time);

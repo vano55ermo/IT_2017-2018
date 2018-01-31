@@ -6,5 +6,16 @@
 	<script src="Trajectory.js"></script>
 	<script src="Init.js"></script>
 	<script src="Render.js"></script>
+	
+	<p>
+		
+		<input type = button value = "addNewTrajectory" onclick = 
+		"
+			
+			var bodyOrbit = new TrajectoryKeplerianOrbit(new TrajectoryStaticPosition(null, 0, 0, 0), 0.5, 30, 2, 2, 0, 0, 10000, 'yellow');
+			var body = new Body(1,'yellow', bodyOrbit, new Orientation(0,0,0,1));
+			
+		">
+	</p>
 </body>
 </html>

@@ -1,5 +1,6 @@
 var scene, camera, renderer, earth, mars, controls;
 var mouseCoords, trajectoryObjects;
+var objects = [];
 
 function init()
 {
@@ -27,13 +28,15 @@ function initObjects()
 	var earthOrbit = new TrajectoryCircleOrbit(sunPosition, 10, 0, 0.2);
 	var marsOrbit = new TrajectoryKeplerianOrbit(sunPosition, 0.8, 30, 0, 1, 0, 0, 10000, 'red');
 	
-	earth = new Body(1, 'blue', earthOrbit, new Orientation(0,0,0,1));
+	earth = new Body(1, 'white', earthOrbit, new Orientation(0,0,0,1));
 	mars = new Body(0.5, 'red', marsOrbit, new Orientation(0,0,0,1));
 }
 
 // Обновляет объекты (на каждом кадре)
 function updateObjects(time)
 {
-	earth.update(time)
-	mars.update(time)
+	for(var i = 0;i < objects.length; i++)
+	{
+		objects[i].update(time)
+	}
 }
