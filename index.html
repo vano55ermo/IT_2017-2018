@@ -4,15 +4,23 @@
 	<script src="http://threejs.org/examples/js/controls/OrbitControls.js"></script>
 	<script src="Body+Orientation.js"></script>
 	<script src="Trajectory.js"></script>
+	<script src="EditLastTrajectory.js"></script>
 	<script src="Init.js"></script>
 	<script src="Render.js"></script>
 	
 	<p>
+		
 		<input type = button value = "addNewTrajectory" onclick = 
-			"
-				var bodyOrbit = new TrajectoryKeplerianOrbit(new TrajectoryStaticPosition(null, 0, 0, 0), 0.5, 30, 2, 2, 0, 0, 10000, 'yellow');
-				var body = new Body(1,'yellow', bodyOrbit, new Orientation(0,0,0,1));
-			"	
+		"
+			var bodyOrbit = new TrajectoryKeplerianOrbit(new TrajectoryStaticPosition(null, 0, 0, 0), 0.5, 30, 2, 2, 0, 0, 10000, 'yellow');
+			var body = new Body(1,'yellow', bodyOrbit, new Orientation(0,0,0,1));
+		">
+		
+		
+		<input type = button value = "editLastTrajectory" onclick = 
+		"
+			editLastTrajectory(objects[objects.length - 1]);
+		"
 		>
 	</p>
 </body>
