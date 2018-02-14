@@ -30,6 +30,9 @@ function initObjects()
 	
 	earth = new Body(1, 'white', earthOrbit, new Orientation(0,0,0,1));
 	mars = new Body(0.5, 'red', marsOrbit, new Orientation(0,0,0,1));
+	
+	earth.addToRender(objects);
+	mars.addToRender(objects);
 }
 
 // Обновляет объекты (на каждом кадре)
@@ -37,6 +40,6 @@ function updateObjects(time)
 {
 	for(var i = 0;i < objects.length; i++)
 	{
-		objects[i].update(time)
+		objects[i].update(time);
 	}
 }

@@ -11,8 +11,6 @@ class Body
 
 		this.trajectory = trajectory;
 		this.orientation = orientation;
-		
-		objects[objects.length] = this;
 	}
 	
 	update(time)
@@ -24,6 +22,11 @@ class Body
 		this.threeObj.rotation.set(angles.x, angles.y, angles.z);
 
 		this.trajectory.update(time);
+	}
+	
+	addToRender(objects)
+	{
+		objects[objects.length] = this;
 	}
 }
 

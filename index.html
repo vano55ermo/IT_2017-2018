@@ -14,12 +14,14 @@
 		"
 			var bodyOrbit = new TrajectoryKeplerianOrbit(new TrajectoryStaticPosition(null, 0, 0, 0), 0.5, 30, 2, 2, 0, 0, 10000, 'yellow');
 			var body = new Body(1,'yellow', bodyOrbit, new Orientation(0,0,0,1));
+			
+			body.addToRender(objects);
 		">
 		
 		
 		<input type = button value = "editLastTrajectory" onclick = 
 		"
-			editLastTrajectory(objects[objects.length - 1]);
+			editLastTrajectory(objects);
 		"
 		>
 	</p>

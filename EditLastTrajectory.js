@@ -1,10 +1,8 @@
-
-
-var value;
-
-function editLastTrajectory(body)
+function editLastTrajectory(objects)
 {			
-	value = prompt("выберите вводимый параметр: e, sma, aop, inc, raan, ta, mu, color");
+	var body = objects[objects.length - 1];
+	
+	var value = prompt("выберите вводимый параметр: e, sma, aop, inc, raan, ta, mu, color");
 		if (value == "e")
 		{
 			value = prompt("введите эксцентриситет");
@@ -52,4 +50,20 @@ function editLastTrajectory(body)
 			value = prompt("введите цвет");
 			body.trajectory.color = value == null ? body.trajectory.color:value;
 		}
+		
+		body = 
+			new Body(body.size,'red',
+			new TrajectoryKeplerianOrbit
+				(body.trajectory.parentTrajectory,
+				 body.trajectory.e,
+				 body.trajectory.sma,
+				 body.trajectory.aop,
+				 body.trajectory.inc,
+				 body.trajectory.raan,
+				 body.trajectory.ta,
+				 body.trajectory.mu,
+				 'green'),
+				 body.orientation);
+				 
+		body.addToRender();
 }
