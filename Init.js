@@ -15,7 +15,7 @@ function init()
 
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-	scene.add(new THREE.AxisHelper(3));
+	scene.add(new THREE.AxisHelper(5));
 
 	trajectoryObjects = new THREE.Object3D();
 	scene.add(trajectoryObjects);
@@ -28,8 +28,9 @@ function initObjects()
 	var earthOrbit = new TrajectoryCircleOrbit(sunPosition, 10, 0, 0.2);
 	var marsOrbit = new TrajectoryKeplerianOrbit(sunPosition, 0.8, 30, 0, 1, 0, 0, 10000, 'red');
 	
-	earth = new Body(1, 'white', earthOrbit, new Orientation(0,0,0,1));
-	mars = new Body(0.5, 'red', marsOrbit, new Orientation(0,0,0,1));
+	earth = new Body(1, 'white', earthOrbit, new Orientation(0,0,0,1),true);
+	mars = new Body(0.5, 'red', marsOrbit, new Orientation(0,0,0,1),true);
+	var sun = new Body(3,'yellow', sunPosition,new Orientation(0,0,0,0),true);
 	
 	earth.addToRender(objects);
 	mars.addToRender(objects);

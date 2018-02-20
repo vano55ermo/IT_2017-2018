@@ -1,5 +1,5 @@
 			var bodyOrbit = new TrajectoryKeplerianOrbit(new TrajectoryStaticPosition(null, 0, 0, 0), 0.5, 30, 2, 2, 0, 0, 10000, 'yellow');
-			var body = new Body(1,'yellow', bodyOrbit, new Orientation(0,0,0,1));
+			var body = new Body(1,'yellow', bodyOrbit, new Orientation(0,0,0,1,true),true);
 			
 			showPrompt("выберите вводимый параметр: e, sma, aop, inc, raan, ta, mu, color", 
 			function(value) 

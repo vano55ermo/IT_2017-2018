@@ -1,9 +1,9 @@
 class Body
 {
-	constructor(size, color, trajectory, orientation)
+	constructor(size, color, trajectory, orientation,transparency)
 	{
 		var geometry = new THREE.SphereGeometry(size, 32, 32);
-		var material = new THREE.MeshBasicMaterial({color: color, wireframe: true});
+		var material = new THREE.MeshBasicMaterial({color: color,transparent:transparency,wireframe: true});
 
 		geometry.rotateX(Math.PI / 2);
 		this.threeObj = new THREE.Mesh(geometry, material);
@@ -24,9 +24,9 @@ class Body
 		this.trajectory.update(time);
 	}
 	
-	addToRender(objects)
+	addToRender(objectsArr)
 	{
-		objects[objects.length] = this;
+		objectsArr[objectsArr.length] = this;
 	}
 }
 
